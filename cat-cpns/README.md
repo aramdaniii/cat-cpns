@@ -176,11 +176,11 @@ Aplikasi Simulasi Tes CAT CPNS menggunakan Laravel 11 dan MySQL.
 - [x] Visual Statistics for User Improvement
 
 ### Features Implemented (STEP 7)
-- [x] PDF Certificate Download (Frontend html2pdf.js)
+- [x] PDF Certificate Download (Server-side DomPDF)
 - [x] Certificate Data JSON API Endpoint
 - [x] Elegant Certificate Template Design
 - [x] Certificate Verification System
-- [x] No External PDF Library Dependencies
+- [x] Correct Percentage Calculation (score / total_questions * 5 * 100)
 
 ### Testing CAT Test
 1. **Start New Test**:
@@ -225,14 +225,14 @@ Aplikasi Simulasi Tes CAT CPNS menggunakan Laravel 11 dan MySQL.
    - Navigate to: http://localhost:8000/certificates
 
 2. **Download PDF**:
-   - Click "Unduh" button on certificate
-   - PDF will be generated using html2pdf.js (frontend)
+   - Click "Unduh PDF" button on certificate
+   - PDF will be generated using DomPDF (server-side)
    - Certificate includes: name, scores, status, verification code
 
 3. **Certificate Features**:
    - Elegant design with border and header
    - TWK/TIU/TKP individual scores
-   - Total score and pass/fail status
+   - Total score with correct percentage calculation
    - Certificate number and verification code
 
 ## Project Structure
