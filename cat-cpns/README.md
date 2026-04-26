@@ -9,6 +9,7 @@ Aplikasi Simulasi Tes CAT CPNS menggunakan Laravel 11 dan MySQL.
 - MySQL Database
 - Composer
 - Web Server (Apache/Nginx)
+- barryvdh/laravel-domPDF (for PDF generation)
 
 ### Installation Steps
 
@@ -181,6 +182,7 @@ Aplikasi Simulasi Tes CAT CPNS menggunakan Laravel 11 dan MySQL.
 - [x] Elegant Certificate Template Design
 - [x] Certificate Verification System
 - [x] Correct Percentage Calculation (score / total_questions * 5 * 100)
+- [x] Unified PDF Generation from Both Test Result and Certificate View Pages
 
 ### Testing CAT Test
 1. **Start New Test**:
@@ -234,6 +236,23 @@ Aplikasi Simulasi Tes CAT CPNS menggunakan Laravel 11 dan MySQL.
    - TWK/TIU/TKP individual scores
    - Total score with correct percentage calculation
    - Certificate number and verification code
+
+## Dependencies
+
+### Core Dependencies
+- Laravel Framework ^11.0
+- Laravel Sanctum ^4.0
+- Laravel Tinker ^2.0
+- Barryvdh DomPDF ^3.1 (for PDF certificate generation)
+
+### Development Dependencies
+- Faker PHP ^1.23
+- Laravel Pint ^1.13
+- PHPUnit ^11.0
+
+### Note on Dependencies
+- `maatwebsite/excel` was removed due to dependency conflicts with Laravel 11
+- `laravel/tinker` updated from ^1.0 to ^2.0 for Laravel 11 compatibility
 
 ## Project Structure
 
