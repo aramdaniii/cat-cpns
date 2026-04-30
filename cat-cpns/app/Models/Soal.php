@@ -244,6 +244,7 @@ class Soal extends Model
             'B' => $this->opsi_b,
             'C' => $this->opsi_c,
             'D' => $this->opsi_d,
+            'E' => $this->opsi_e,
         ];
     }
 }
