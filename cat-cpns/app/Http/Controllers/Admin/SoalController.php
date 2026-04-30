@@ -193,6 +193,9 @@ class SoalController extends Controller
      */
     public function import(Request $request)
     {
+        // Increase execution time to 5 minutes for large imports
+        set_time_limit(300);
+
         $request->validate([
             'file' => ['required', 'file', 'mimes:csv,txt', 'max:10240'], // Max 10MB, CSV or TXT
         ]);
@@ -215,6 +218,8 @@ class SoalController extends Controller
             $errors = [];
 
             $rowNumber = 2; // Start from row 2 (after header)
+            $batchSize = 100; // Process in batches of 100 rows
+            $batch = [];
 
             while (($data = fgetcsv($handle)) !== false) {
                 try {
@@ -250,8 +255,14 @@ class SoalController extends Controller
                         $soalData['kategori'] = 'TWK';
                     }
 
-                    Soal::create($soalData);
-                    $successCount++;
+                    $batch[] = $soalData;
+
+                    // Insert batch when it reaches batch size
+                    if (count($batch) >= $batchSize) {
+                        Soal::insert($batch);
+                        $successCount += count($batch);
+                        $batch = []; // Clear batch
+                    }
 
                 } catch (\Exception $e) {
                     $errors[] = "Baris {$rowNumber}: " . $e->getMessage();
@@ -259,6 +270,12 @@ class SoalController extends Controller
                 }
 
                 $rowNumber++;
+            }
+
+            // Insert remaining records in batch
+            if (!empty($batch)) {
+                Soal::insert($batch);
+                $successCount += count($batch);
             }
 
             fclose($handle);
