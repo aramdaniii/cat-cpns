@@ -213,6 +213,9 @@ class SoalController extends Controller
             // Skip header row
             fgetcsv($handle);
 
+            // Set UTF-8 encoding for proper character handling
+            stream_filter_append($handle, 'convert.iconv.UTF-8/UTF-8//TRANSLIT');
+
             $successCount = 0;
             $errorCount = 0;
             $errors = [];
