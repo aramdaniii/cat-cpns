@@ -54,7 +54,7 @@ return [
             'strict' => true,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? [
-                PDO::MYSQL_ATTR_SSL_CA => env('APP_ENV') === 'production' ? '/etc/pki/tls/certs/ca-bundle.crt' : null,
+                PDO::MYSQL_ATTR_SSL_CA => env('DB_SSL_CA', null),
                 PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
             ] : [],
         ],
