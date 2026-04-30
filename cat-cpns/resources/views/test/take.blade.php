@@ -480,14 +480,14 @@
         // Form submission validation
         document.getElementById('answerForm').addEventListener('submit', function(e) {
             console.log('Form submission triggered');
-            
+
             const answerInput = document.getElementById('answerInput');
             const currentAnswer = answerInput ? answerInput.value : '';
-            
+
             console.log('Answer input found:', !!answerInput);
             console.log('Current answer value:', currentAnswer);
             console.log('Selected answer variable:', selectedAnswer);
-            
+
             // Ensure answer is selected
             if (!currentAnswer || !currentAnswer.trim()) {
                 console.log('Answer validation failed - showing alert');
@@ -495,20 +495,20 @@
                 alert('Anda harus memilih jawaban terlebih dahulu!');
                 return false;
             }
-            
+
             // Ensure answer input has correct value
             if (answerInput && selectedAnswer) {
                 answerInput.value = selectedAnswer;
                 console.log('Answer input updated to selectedAnswer:', selectedAnswer);
             }
-            
+
             // Remove any hidden _method input if it exists
             const methodInput = this.querySelector('input[name="_method"]');
             if (methodInput) {
                 methodInput.remove();
                 console.log('Removed _method input');
             }
-            
+
             console.log('Form will be submitted with answer:', currentAnswer);
         });
 

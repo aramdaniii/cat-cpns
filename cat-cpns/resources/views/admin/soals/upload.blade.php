@@ -158,6 +158,12 @@
                                                         <td>Megawati</td>
                                                     </tr>
                                                     <tr>
+                                                        <td><code>opsi_e</code></td>
+                                                        <td>Text</td>
+                                                        <td><span class="badge bg-secondary">Tidak</span></td>
+                                                        <td>Susilo Bambang Yudhoyono (opsional)</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td><code>jawaban_benar</code></td>
                                                         <td>Text</td>
                                                         <td><span class="badge bg-danger">Ya</span></td>
@@ -182,8 +188,9 @@
                                         <div class="alert alert-warning mt-3">
                                             <strong>Catatan:</strong>
                                             <ul class="mb-0">
-                                                <li>Jawaban benar harus berupa huruf: A, B, C, atau D</li>
+                                                <li>Jawaban benar harus berupa huruf: A, B, C, D, atau E</li>
                                                 <li>Kategori harus: TWK, TIU, atau TKP</li>
+                                                <li>opsi_e bersifat opsional (boleh kosong)</li>
                                                 <li>Baris kosong akan diabaikan</li>
                                                 <li>Error pada baris tertentu tidak akan menghentikan proses import</li>
                                             </ul>

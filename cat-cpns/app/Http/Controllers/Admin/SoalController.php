@@ -227,8 +227,9 @@ class SoalController extends Controller
                         'opsi_b' => $data[4] ?? '',
                         'opsi_c' => $data[5] ?? '',
                         'opsi_d' => $data[6] ?? '',
-                        'jawaban_benar' => strtoupper($data[7] ?? 'A'),
-                        'pembahasan' => $data[8] ?? '',
+                        'opsi_e' => $data[7] ?? '',
+                        'jawaban_benar' => strtoupper($data[8] ?? 'A'),
+                        'pembahasan' => $data[9] ?? '',
                     ];
 
                     // Validate required fields
@@ -240,7 +241,7 @@ class SoalController extends Controller
                     }
 
                     // Validate jawaban_benar
-                    if (!in_array($soalData['jawaban_benar'], ['A', 'B', 'C', 'D'])) {
+                    if (!in_array($soalData['jawaban_benar'], ['A', 'B', 'C', 'D', 'E'])) {
                         $soalData['jawaban_benar'] = 'A';
                     }
 
@@ -384,6 +385,7 @@ class SoalController extends Controller
                 'pilihan_b',
                 'pilihan_c',
                 'pilihan_d',
+                'pilihan_e',
                 'jawaban_benar',
                 'pembahasan'
             ]);
@@ -397,6 +399,7 @@ class SoalController extends Controller
                 'Pilihan B',
                 'Pilihan C',
                 'Pilihan D',
+                'Pilihan E (opsional)',
                 'A',
                 'Pembahasan jawaban'
             ]);

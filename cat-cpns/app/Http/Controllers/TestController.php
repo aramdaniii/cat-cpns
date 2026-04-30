@@ -211,7 +211,7 @@ class TestController extends Controller
     public function answer(Request $request, TestSession $session)
     {
         $request->validate([
-            'answer' => ['required', 'in:A,B,C,D'],
+            'answer' => ['required', 'in:A,B,C,D,E'],
         ]);
 
         // Check if session belongs to user
@@ -446,7 +446,7 @@ class TestController extends Controller
         $request->validate([
             'session_id' => ['required', 'exists:test_sessions,id'],
             'question_index' => ['required', 'integer', 'min:0'],
-            'answer' => ['required', 'in:A,B,C,D'],
+            'answer' => ['required', 'in:A,B,C,D,E'],
         ]);
 
         $session = TestSession::find($request->session_id);
