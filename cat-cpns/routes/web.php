@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/test/{session}/take', [TestController::class, 'take'])->name('test.take');
     Route::post('/test/{session}/answer', [TestController::class, 'answer'])->name('test.answer');
     Route::post('/test/{session}/navigate', [TestController::class, 'navigate'])->name('test.navigate');
+    Route::post('/test/auto-save', [TestController::class, 'autoSave'])->name('test.auto-save');
     Route::get('/test/{session}/result', [TestController::class, 'result'])->name('test.result');
     Route::delete('/test/{session}/cancel', [TestController::class, 'cancel'])->name('test.cancel');
     

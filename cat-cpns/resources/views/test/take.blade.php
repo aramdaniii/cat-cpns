@@ -199,6 +199,11 @@
                         <input type="hidden" name="answer" id="answerInput" value="{{ $session->getCurrentAnswer() ?? '' }}">
 
                         
+                        <!-- Auto-save indicator -->
+                        <div id="autoSaveIndicator" class="hidden fixed bottom-4 right-4 bg-emerald-500 text-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium z-50">
+                            <i class="fas fa-check mr-2"></i>Tersimpan...
+                        </div>
+
                         <!-- Navigation Buttons -->
                         <div class="flex flex-col sm:flex-row justify-between items-center mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-slate-100 gap-3 sm:gap-0">
                             <button type="button"
@@ -304,67 +309,104 @@
 
         function selectAnswer(answer) {
             selectedAnswer = answer;
-            
+
             console.log('Answer selected:', answer);
-            
+
             // Update UI - Remove selected state from all options
             document.querySelectorAll('.answer-option').forEach(el => {
                 el.classList.remove('border-blue-500', 'bg-blue-50', 'ring-2', 'ring-blue-200');
                 el.classList.add('border-slate-200', 'bg-white');
-                
+
                 // Update badge color
                 const badge = el.querySelector('.option-badge');
                 if (badge) {
                     badge.classList.remove('bg-blue-600', 'text-white');
                     badge.classList.add('bg-slate-100', 'text-slate-600');
                 }
-                
+
                 // Remove check icon
                 const checkIcon = el.querySelector('.fa-check-circle');
                 if (checkIcon) {
                     checkIcon.remove();
                 }
-                
+
                 // Uncheck radio input
                 const radio = el.querySelector('input[type="radio"]');
                 if (radio) {
                     radio.checked = false;
                 }
             });
-            
+
             // Add selected state to clicked option
             const selectedOption = document.getElementById('option-' + answer);
             if (selectedOption) {
                 selectedOption.classList.remove('border-slate-200', 'bg-white');
                 selectedOption.classList.add('border-blue-500', 'bg-blue-50', 'ring-2', 'ring-blue-200');
-                
+
                 // Update badge color
                 const badge = selectedOption.querySelector('.option-badge');
                 if (badge) {
                     badge.classList.remove('bg-slate-100', 'text-slate-600');
                     badge.classList.add('bg-blue-600', 'text-white');
                 }
-                
+
                 // Add check icon
                 if (!selectedOption.querySelector('.fa-check-circle')) {
                     const checkIcon = document.createElement('i');
                     checkIcon.className = 'fas fa-check-circle text-blue-600 text-lg';
                     selectedOption.appendChild(checkIcon);
                 }
-                
+
                 // Check radio input
                 const radio = selectedOption.querySelector('input[type="radio"]');
                 if (radio) {
                     radio.checked = true;
                 }
             }
-            
+
             // Update hidden input
             const answerInput = document.getElementById('answerInput');
             if (answerInput) {
                 answerInput.value = answer;
                 console.log('Answer input updated to:', answerInput.value);
             }
+
+            // Auto-save to server
+            autoSaveAnswer(answer);
+        }
+
+        function autoSaveAnswer(answer) {
+            const sessionId = {{ $session->id }};
+            const questionIndex = {{ $session->current_question }};
+
+            fetch('{{ route('test.auto-save') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    session_id: sessionId,
+                    question_index: questionIndex,
+                    answer: answer
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show "Tersimpan..." indicator
+                    const indicator = document.getElementById('autoSaveIndicator');
+                    if (indicator) {
+                        indicator.classList.remove('hidden');
+                        setTimeout(() => {
+                            indicator.classList.add('hidden');
+                        }, 2000);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Auto-save failed:', error);
+            });
         }
 
         function navigateToQuestion(questionNumber) {

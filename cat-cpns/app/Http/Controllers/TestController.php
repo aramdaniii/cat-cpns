@@ -437,4 +437,34 @@ class TestController extends Controller
 
         return redirect()->route('test.index')->with('success', 'Tes berhasil dibatalkan.');
     }
+
+    /**
+     * Auto-save answer in background
+     */
+    public function autoSave(Request $request)
+    {
+        $request->validate([
+            'session_id' => ['required', 'exists:test_sessions,id'],
+            'question_index' => ['required', 'integer', 'min:0'],
+            'answer' => ['required', 'in:A,B,C,D'],
+        ]);
+
+        $session = TestSession::find($request->session_id);
+
+        // Check if session belongs to user
+        if ($session->user_id !== auth()->id()) {
+            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+        }
+
+        // Check if session is still in progress
+        if ($session->isCompleted()) {
+            return response()->json(['success' => false, 'message' => 'Test already completed'], 400);
+        }
+
+        // Save answer
+        $session->setAnswer($request->question_index, $request->answer);
+        $session->save();
+
+        return response()->json(['success' => true, 'message' => 'Answer saved']);
+    }
 }
