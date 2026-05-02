@@ -364,7 +364,7 @@ Project ini dilisensikan under MIT License - lihat file [LICENSE](LICENSE) untuk
 ## 📞 Kontak & Support
 
 - **Developer**: Arif Ramdani
-- **Email**: arif.ramdani@example.com
+- **Email**: ariframdani0112@gmail.com
 - **GitHub**: [@aramdaniii](https://github.com/aramdaniii)
 
 ## 🙏 Acknowledgments
